@@ -1,0 +1,22 @@
+{
+  "name": "simpledbjs",
+  "version": "1.0.0",
+  "description": "SimpleDBJS is a JavaScript library for parsing socket output and connecting to SimpleDB. It simplifies interaction with SimpleDB, making database operations easy to integrate into JavaScript applications.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cameronMcConnell/SimpleDBJS.git"
+  },
+  "author": "Cameron McConnell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cameronMcConnell/SimpleDBJS/issues"
+  },
+  "homepage": "https://github.com/cameronMcConnell/SimpleDBJS#readme",
+  "dependencies": {
+    "csvtojson": "^2.0.10"
+  }
+}
