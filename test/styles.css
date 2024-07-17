@@ -1,0 +1,25 @@
+#main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#set-url{
+    display: flex;
+    flex-direction: column;
+    margin: 12px;
+}
+
+#send-message{
+    display: flex;
+    flex-direction: column;
+    margin: 12px;
+}
+
+#response-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

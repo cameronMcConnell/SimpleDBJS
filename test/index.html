@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimpleDBJS Tester</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="main-container">
+        <h1>SimpleDBJS Tester</h1>
+        <form id="set-url">
+            <label for="host">SimpleDB URL:</label>
+            <input type="text" id="url" name="url" required>
+            <button type="submit">Submit</button>
+        </form>
+        <form id="send-message">
+            <label for="url">SimpleDB Message:</label>
+            <input type="text" id="message" name="message" required>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="response-container"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

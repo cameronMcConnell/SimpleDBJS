@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "SimpleDBJS is a JavaScript library for parsing socket output and connecting to SimpleDB. It simplifies interaction with SimpleDB, making database operations easy to integrate into JavaScript applications.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/cameronMcConnell/SimpleDBJS#readme",
   "dependencies": {
-    "csvtojson": "^2.0.10"
+    "csvtojson": "^2.0.10",
+    "http-server": "^14.1.1"
   }
 }
