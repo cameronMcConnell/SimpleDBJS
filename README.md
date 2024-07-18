@@ -6,7 +6,7 @@ SimpleDBJS is a Node.js library that provides a client interface to communicate 
 Install SimpleDBJS via npm:
 
 ```bash
-npm install simpledbjs
+npm install simpledb-client
 ```
 
 ## Usage
