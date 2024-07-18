@@ -1,5 +1,5 @@
 # SimpleDBJS
-SimpleDBJS is a JavaScript library for parsing socket output and connecting to SimpleDB. It simplifies interaction with SimpleDB, making database operations easy to integrate into JavaScript applications.
+SimpleDBJS is a Node.js library that provides a client interface to communicate with SimpleDB, a lightweight Database Management System (DBMS) written in C++. It allows developers to interact with SimpleDB using WebSocket technology, enabling seamless integration with web applications.
 
 ## Installation
 
