@@ -25,7 +25,7 @@ const simpleDBClient = new SimpleDBClient(url);
 Send commands to SimpleDB:
 
 ```javascript
-const message = 'SELECT * FROM table;';
+const message = 'CREATE table WITH header';
 simpleDBClient.sendMessage(message);
 ```
 
@@ -41,7 +41,7 @@ async function handleResponse() {
 
 ### Example
 ```javascript
-const message = 'SELECT * FROM users;';
+const message = 'SELECT *';
 simpleDBClient.sendMessage(message);
 
 // Assuming within an async function or using .then()
@@ -51,7 +51,7 @@ console.log('Query results:', data.output);
 
 ## API Reference
 
-### SimpleDBClient(url)`
+### SimpleDBClient(url)
 - url: WebSocket URL to SimpleDB Middleware.
 
 ### Methods
