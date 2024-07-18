@@ -3,32 +3,38 @@ class SimpleDBClient {
         this.ws = new WebSocket(url);
         this.ws.onmessage = async (event) => await this.#handleMessage(event.data);
         this.data = null;
-        this.messageResolved = false;
+        this.messagePromise = null;
+        this.messageResolver = null;
     }
 
     sendMessage(message) {
-        this.client.write(message);
-        this.messageResolved = false;
+        this.ws.send(message);
+        this.messagePromise = new Promise((resolve) => {
+            this.messageResolver = resolve;
+        });
     }
 
     async getData() {
-        while (!this.messageResolved) {
-            await new Promise((resolve) => setTimeout(resolve, 50));
-        }
-        return this.data;
+        return this.messagePromise;
     }
 
     async #handleMessage(message) {
         await this.#parseMessage(message);
-        this.messageResolved = true;
+        if (this.messageResolver) {
+            this.messageResolver(this.data);
+            this.messageResolver = null;
+        }
     }
 
     async #parseMessage(message) {
         try {
             this.data = await JSON.parse(message);
+            if (this.data.output === "QUITTING PROGRAM;") {
+                this.ws.close();
+            }
         } catch (err) {
             console.error("Error parsing WebSocket message: ", err);
-            this.data = null;
+            this.data = {output: err};
         }
     }
 }
@@ -54,19 +60,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const messageForm = document.getElementById("send-message");
 
-    messageForm.addEventListener("submit", (event) => {
+    messageForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
         const message = document.getElementById("message").value;
 
         try {
             simpleDBClient.sendMessage(message);
-            const data = simpleDBClient.getData();
+            const data = await simpleDBClient.getData();
             
-            const responseList = document.getElementById("response-container");
-            responseList.innerHTML += `<p>${JSON.stringify(data)}</p>`;
+            const responseContainer = document.getElementById("response-container");
+            responseContainer.innerHTML += `<p>${data.output}</p>`;
         } catch (err) {
-            console.err("Error trying to send message: ", err);
+            console.error("Error trying to send message: ", err);
             messageForm.innerHTML += `<p>Error: ${err}</p>`;
         }
     })

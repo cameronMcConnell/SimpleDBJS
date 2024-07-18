@@ -3,32 +3,38 @@ export default class SimpleDBClient {
         this.ws = new WebSocket(url);
         this.ws.onmessage = async (event) => await this.#handleMessage(event.data);
         this.data = null;
-        this.messageResolved = false;
+        this.messagePromise = null;
+        this.messageResolver = null;
     }
 
     sendMessage(message) {
-        this.client.write(message);
-        this.messageResolved = false;
+        this.ws.send(message);
+        this.messagePromise = new Promise((resolve) => {
+            this.messageResolver = resolve;
+        });
     }
 
     async getData() {
-        while (!this.messageResolved) {
-            await new Promise((resolve) => setTimeout(resolve, 50));
-        }
-        return this.data;
+        return this.messagePromise;
     }
 
     async #handleMessage(message) {
         await this.#parseMessage(message);
-        this.messageResolved = true;
+        if (this.messageResolver) {
+            this.messageResolver(this.data);
+            this.messageResolver = null;
+        }
     }
 
     async #parseMessage(message) {
         try {
             this.data = await JSON.parse(message);
+            if (this.data.output === "QUITTING PROGRAM;") {
+                this.ws.close();
+            }
         } catch (err) {
             console.error("Error parsing WebSocket message: ", err);
-            this.data = null;
+            this.data = {output: err};
         }
     }
 }
